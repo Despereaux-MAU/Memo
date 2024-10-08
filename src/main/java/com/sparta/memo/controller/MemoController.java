@@ -2,8 +2,11 @@ package com.sparta.memo.controller;
 
 import com.sparta.memo.dto.MemoRequestDto;
 import com.sparta.memo.dto.MemoResponseDto;
+import com.sparta.memo.entity.Memo;
 import com.sparta.memo.service.MemoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.query.QueryByExampleExecutor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,5 +41,10 @@ public class MemoController {
     @DeleteMapping("/memos/{id}")
     public Long deleteMemo(@PathVariable Long id) {
         return memoService.deleteMemo(id);
+    }
+
+    @GetMapping("/memos/contents")
+    public List<MemoResponseDto> getMemosByKeyword(@RequestParam String keyword) {
+        return memoService.getMemosByKeyword(keyword);
     }
 }

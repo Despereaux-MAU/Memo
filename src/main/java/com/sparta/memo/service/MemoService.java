@@ -4,6 +4,7 @@ import com.sparta.memo.dto.MemoRequestDto;
 import com.sparta.memo.dto.MemoResponseDto;
 import com.sparta.memo.entity.Memo;
 import com.sparta.memo.repsitory.MemoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,6 +58,11 @@ public class MemoService { // memoService
         memoRepository.delete(memo);
 
         return id;
+    }
+
+    public List<MemoResponseDto> getMemosByKeyword(String keyword) {
+        // DB 조회
+        return memoRepository.findAllByContentsContainsOrderByModifiedAtDesc(keyword).stream().map(MemoResponseDto::new).toList();
     }
 
     private Memo findMemo(Long id) {
