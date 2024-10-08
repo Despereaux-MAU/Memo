@@ -23,7 +23,6 @@ public class MemoController {
     }
 
     @PostMapping("/memos")
-
     public MemoResponseDto createMemo(@RequestBody MemoRequestDto requestDto) {
         return memoService.createMemo(requestDto);
     }
@@ -31,6 +30,11 @@ public class MemoController {
     @GetMapping("/memos")
     public List<MemoResponseDto> getMemos() {
         return memoService.getMemos();
+    }
+
+    @GetMapping("/memos/contents")
+    public List<MemoResponseDto> getMemosByKeyword(@RequestParam String keyword) { // @RequestParam 생략 가능
+        return memoService.getMemosByKeyword(keyword);
     }
 
     @PutMapping("/memos/{id}")
@@ -43,8 +47,5 @@ public class MemoController {
         return memoService.deleteMemo(id);
     }
 
-    @GetMapping("/memos/contents")
-    public List<MemoResponseDto> getMemosByKeyword(@RequestParam String keyword) {
-        return memoService.getMemosByKeyword(keyword);
-    }
+
 }

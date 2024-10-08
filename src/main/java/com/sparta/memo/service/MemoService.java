@@ -38,6 +38,11 @@ public class MemoService { // memoService
         return memoRepository.findAllByOrderByModifiedAtDesc().stream().map(MemoResponseDto::new).toList();
     }
 
+    public List<MemoResponseDto> getMemosByKeyword(String keyword) {
+        // DB 조회
+        return memoRepository.findAllByContentsContainsOrderByModifiedAtDesc(keyword).stream().map(MemoResponseDto::new).toList();
+    }
+
     @Transactional
     public Long updateMemo(Long id, MemoRequestDto requestDto) {
 
@@ -58,11 +63,6 @@ public class MemoService { // memoService
         memoRepository.delete(memo);
 
         return id;
-    }
-
-    public List<MemoResponseDto> getMemosByKeyword(String keyword) {
-        // DB 조회
-        return memoRepository.findAllByContentsContainsOrderByModifiedAtDesc(keyword).stream().map(MemoResponseDto::new).toList();
     }
 
     private Memo findMemo(Long id) {
